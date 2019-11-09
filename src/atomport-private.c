@@ -12,6 +12,10 @@
  */
 void avrInitSystemTickTimer ( void )
 {
+    TCCR1A &= 0xFC;     // Clear WGM11 and WGM10
+    TCCR1B &= 0xC0;     // Clear TCCR1B prescaler and mode bits
+    TCNT1  = 0;         // Start counter at 0
+    
     /* Set timer 1 compare match value for configured system tick,
      * with a prescaler of 256. We will get a compare match 1A
      * interrupt on every system tick, in which we must call the
